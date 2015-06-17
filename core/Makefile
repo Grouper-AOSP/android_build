@@ -86,12 +86,13 @@ else
 INSTALLED_DEFAULT_PROP_TARGET := $(TARGET_ROOT_OUT)/default.prop
 endif
 ALL_DEFAULT_INSTALLED_MODULES += $(INSTALLED_DEFAULT_PROP_TARGET)
-FINAL_DEFAULT_PROPERTIES := \
-    $(call collapse-pairs, $(ADDITIONAL_DEFAULT_PROPERTIES))
+FINAL_DEFAULT_PROPERTIES :=
 ifndef property_overrides_split_enabled
   FINAL_DEFAULT_PROPERTIES += \
       $(call collapse-pairs, $(PRODUCT_DEFAULT_PROPERTY_OVERRIDES))
 endif
+FINAL_DEFAULT_PROPERTIES += \
+    $(call collapse-pairs, $(ADDITIONAL_DEFAULT_PROPERTIES))
 FINAL_DEFAULT_PROPERTIES := $(call uniq-pairs-by-first-component, \
     $(FINAL_DEFAULT_PROPERTIES),=)
 
