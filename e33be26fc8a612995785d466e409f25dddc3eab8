@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a890539_6decd5c8",
+        "filename": "core/tasks/kernel.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000038
+      },
+      "writtenOn": "2016-10-01T16:10:08Z",
+      "side": 1,
+      "message": "we can remove the include i think",
+      "revId": "e33be26fc8a612995785d466e409f25dddc3eab8",
+      "serverId": "d5e41ece-075f-43fb-b5a6-48951f3d7b1d",
+      "unresolved": false
+    }
+  ]
+}
