@@ -96,3 +96,6 @@ PRODUCT_COPY_FILES += \
     system/core/rootdir/init.usb.configfs.rc:root/init.usb.configfs.rc \
     system/core/rootdir/ueventd.rc:root/ueventd.rc \
     system/core/rootdir/etc/hosts:system/etc/hosts
+
+# Inherit Unlegacy Android config
+$(call inherit-product-if-exists, vendor/unlegacy/configs/common.mk)
