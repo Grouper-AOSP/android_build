@@ -17,6 +17,9 @@
 # This is a build configuration for a very minimal build of the
 # Open-Source part of the tree.
 
+# Include Unlegacy Android stuff
+-include vendor/unlegacy/config/common.mk
+
 PRODUCT_PACKAGES += \
     adb \
     adbd \
