@@ -963,7 +963,7 @@ $(RECOVERY_INSTALL_OTA_KEYS): $(OTA_PUBLIC_KEYS) $(DUMPKEY_JAR) $(extra_keys)
 	java -jar $(DUMPKEY_JAR) $(PRIVATE_OTA_PUBLIC_KEYS) $(extra_keys) > $@
 
 define build-recoveryramdisk
-  @echo -e ${CL_CYN}"----- Making recovery ramdisk ------"${CL_RST}
+  @echo ----- Making recovery ramdisk ------
   $(hide) mkdir -p $(TARGET_RECOVERY_OUT)
   $(hide) mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/etc $(TARGET_RECOVERY_ROOT_OUT)/sdcard $(TARGET_RECOVERY_ROOT_OUT)/tmp
   @echo Copying baseline ramdisk...
@@ -1046,17 +1046,17 @@ $(recovery_uncompressed_ramdisk): $(MKBOOTFS) \
 		$(recovery_fstab) \
 		$(RECOVERY_INSTALL_OTA_KEYS)
 		$(call build-recoveryramdisk)
-		@echo -e ${CL_CYN}"----- Making uncompressed recovery ramdisk ------"${CL_RST}
+		@echo "----- Making uncompressed recovery ramdisk ------"
 		$(hide) $(MKBOOTFS) $(TARGET_RECOVERY_ROOT_OUT) > $@
 
 $(recovery_ramdisk): $(MINIGZIP) \
 		$(recovery_uncompressed_ramdisk)
-		@echo -e ${CL_CYN}"----- Making compressed recovery ramdisk ------"${CL_RST}
+		@echo "----- Making compressed recovery ramdisk ------"
 		$(hide) $(MINIGZIP) < $(recovery_uncompressed_ramdisk) > $@
 
 ifndef BOARD_CUSTOM_BOOTIMG_MK
 $(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTIMG) $(recovery_ramdisk) $(recovery_kernel)
-	@echo -e ${CL_CYN}"----- Making recovery image ------"${CL_RST}
+	@echo "----- Making recovery image ------"
 	$(call build-recoveryimage-target, $@)
 endif # BOARD_CUSTOM_BOOTIMG_MK
 
