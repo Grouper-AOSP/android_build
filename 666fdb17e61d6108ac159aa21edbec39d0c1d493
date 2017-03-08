@@ -22,6 +22,30 @@
       "revId": "666fdb17e61d6108ac159aa21edbec39d0c1d493",
       "serverId": "d5e41ece-075f-43fb-b5a6-48951f3d7b1d",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "241a7867_f36f3094",
+        "filename": "core/combo/arch/arm/armv7-a-neon.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2017-03-08T16:39:04Z",
+      "side": 1,
+      "message": "ifeq/else * \u003d\u003d ifneq *, right? Basically, trying to preserve TARGET_FPU_VARIANT support from Kyle\u0027s original patch, although doubt any of our device trees is using it.",
+      "parentUuid": "241a7867_536144a9",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 3
+      },
+      "revId": "666fdb17e61d6108ac159aa21edbec39d0c1d493",
+      "serverId": "d5e41ece-075f-43fb-b5a6-48951f3d7b1d",
+      "unresolved": false
     }
   ]
 }
