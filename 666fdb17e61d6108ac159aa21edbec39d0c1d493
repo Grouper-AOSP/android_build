@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "241a7867_536144a9",
+        "filename": "core/combo/arch/arm/armv7-a-neon.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000044
+      },
+      "writtenOn": "2017-03-08T16:34:15Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 3
+      },
+      "revId": "666fdb17e61d6108ac159aa21edbec39d0c1d493",
+      "serverId": "d5e41ece-075f-43fb-b5a6-48951f3d7b1d",
+      "unresolved": false
+    }
+  ]
+}
