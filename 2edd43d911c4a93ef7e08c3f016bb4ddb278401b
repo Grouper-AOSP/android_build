@@ -16,6 +16,24 @@
       "revId": "2edd43d911c4a93ef7e08c3f016bb4ddb278401b",
       "serverId": "d5e41ece-075f-43fb-b5a6-48951f3d7b1d",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5812af1_deb0d744",
+        "filename": "tools/releasetools/edify_generator.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-04-30T20:22:44Z",
+      "side": 1,
+      "message": "Nah, you\u0027re right!",
+      "parentUuid": "ad7aa348_68aba386",
+      "revId": "2edd43d911c4a93ef7e08c3f016bb4ddb278401b",
+      "serverId": "d5e41ece-075f-43fb-b5a6-48951f3d7b1d",
+      "unresolved": false
     }
   ]
 }
