@@ -414,7 +414,9 @@ INTERNAL_RAMDISK_FILES := $(filter $(TARGET_ROOT_OUT)/%, \
 	$(ALL_PREBUILT) \
 	$(ALL_COPIED_HEADERS) \
 	$(ALL_GENERATED_SOURCES) \
-	$(ALL_DEFAULT_INSTALLED_MODULES))
+	$(ALL_DEFAULT_INSTALLED_MODULES)) \
+	$(if $(BOARD_BOOT_KERNEL_MODULES), \
+	$(BOARD_BOOT_KERNEL_MODULES) $(DEPMOD))
 
 BUILT_RAMDISK_TARGET := $(PRODUCT_OUT)/ramdisk.img
 
@@ -422,6 +424,10 @@ BUILT_RAMDISK_TARGET := $(PRODUCT_OUT)/ramdisk.img
 INSTALLED_RAMDISK_TARGET := $(BUILT_RAMDISK_TARGET)
 $(INSTALLED_RAMDISK_TARGET): $(MKBOOTFS) $(INTERNAL_RAMDISK_FILES) | $(MINIGZIP)
 	$(call pretty,"Target ram disk: $@")
+	$(if $(BOARD_BOOT_KERNEL_MODULES), \
+	  $(call build-image-kernel-modules, \
+	  $(BOARD_BOOT_KERNEL_MODULES),$(TARGET_ROOT_OUT),, \
+	  $(call intermediates-dir-for,PACKAGING,depmod_boot)))
 	$(hide) $(MKBOOTFS) $(TARGET_ROOT_OUT) | $(MINIGZIP) > $@
 
 .PHONY: ramdisk-nodeps
@@ -684,6 +690,9 @@ ifeq (,$(filter true, $(TARGET_NO_KERNEL) $(TARGET_NO_RECOVERY)))
 
 INSTALLED_RECOVERYIMAGE_TARGET := $(PRODUCT_OUT)/recovery.img
 
+# Passed into rsync from non-recovery root to recovery root, to avoid conflicts with recovery-specific
+IGNORE_BOOT_KERNEL_MODULES := $(addprefix --exclude=lib/modules/,$(notdir $(BOARD_BOOT_KERNEL_MODULES))) --prune-empty-dirs
+
 recovery_initrc := $(call include-path-for, recovery)/etc/init.rc
 recovery_kernel := $(INSTALLED_KERNEL_TARGET) # same as a non-recovery system
 recovery_ramdisk := $(PRODUCT_OUT)/ramdisk-recovery.img
@@ -771,7 +780,7 @@ $(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTFS) $(MKBOOTIMG) $(MINIGZIP) \
 	$(hide) mkdir -p $(TARGET_RECOVERY_OUT)
 	$(hide) mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/etc $(TARGET_RECOVERY_ROOT_OUT)/tmp
 	@echo -e ${PRT_IMG}"Copying baseline ramdisk..."${CL_RST}
-	$(hide) rsync -a $(TARGET_ROOT_OUT) $(TARGET_RECOVERY_OUT) # "cp -Rf" fails to overwrite broken symlinks on Mac.
+	$(hide) rsync -a $(IGNORE_BOOT_KERNEL_MODULES) $(TARGET_ROOT_OUT) $(TARGET_RECOVERY_OUT) # "cp -Rf" fails to overwrite broken symlinks on Mac.
 	@echo -e ${PRT_IMG}"Modifying ramdisk contents..."${CL_RST}
 	$(if $(BOARD_RECOVERY_KERNEL_MODULES), \
 		$(call build-image-kernel-modules,$(BOARD_RECOVERY_KERNEL_MODULES),$(TARGET_RECOVERY_ROOT_OUT),,$(call intermediates-dir-for,PACKAGING,depmod_recovery)))
