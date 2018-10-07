@@ -505,6 +505,13 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   system_diff = common.BlockDifference("system", system_tgt, src=None)
   system_diff.WriteScript(script, output_zip)
 
+  # Add support for any /system size mods for all supported devices without
+  # messing with device trees.
+  partition = common.GetTypeAndDevice("/system", OPTIONS.info_dict)
+  script.AppendExtra('run_program("e2fsck", "-fy", "%s");' % partition)
+  script.AppendExtra('run_program("resize2fs", "-f", "%s");' % partition)
+  script.AppendExtra('run_program("e2fsck", "-fy", "%s");' % partition)
+
   boot_img = common.GetBootableImage(
       "boot.img", "boot.img", OPTIONS.input_tmp, "BOOT")
 
